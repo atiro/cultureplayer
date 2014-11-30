@@ -23,7 +23,8 @@ class Command(BaseCommand):
 		for obj in data:
 		    o = Object(title=obj["title"], location = va_room,
 			description = "", collection_id = obj["object_number"],
-			url = "", image_url = obj["primary_image_id"])
+			url = "", artist = obj["artist"],
+			image_url = obj["primary_image_id"])
 
 		    o.save()
 		
