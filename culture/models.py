@@ -12,6 +12,7 @@ class Location(models.Model):
 
 class Object(models.Model):
 	title = models.CharField(max_length=255)
+	artist = models.CharField(max_length=255, default='')
 	location = models.ForeignKey(Location)
 	description = models.TextField()
 	collection_id = models.CharField(max_length=100)
