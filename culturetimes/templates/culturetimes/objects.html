@@ -13,11 +13,22 @@
 <body>
 
 {% if object_list %}
-  <ul class="list-group">
     {% for object in object_list %}
-      <li class="list-group-item"><a href="{{object.id}}/">{{object.title}}</a></li>
+      {% if object.programme_set.count > 0 %}
+      <div class="panel panel-info">
+       <div class="panel-heading">
+        <h3 class="panel-title">{{object.title}}</h3>
+       </div>
+       <div class="panel-body">
+	    <ul class="list-group">
+	    {% for programme in object.programme_set.all|slice:":5" %}
+ 	     <li class="list-group-item"><a href="{{programme.id}}/" data-toggle="tooltip" data-placement="top" title="" data-original-title="{{programme.description}}">{{programme.title}}</a></li>
+    	    {% endfor %}
+	    </ul>
+       </div>
+      </div>
+      {% endif %}
     {% endfor %}
-  </ul>
 {% endif %}
 </body>
 </html>
