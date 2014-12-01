@@ -3,25 +3,28 @@ from django.core.management.base import BaseCommand, CommandError
 import os, django
 import json
 
-
-#os.environ.setdefault("DJANGO_SETTINGS_MODULE", "myapp.settings")
-#django.setup()
-
 class Command(BaseCommand):
 	args = '<filename>'
-	help = "Loads objects from json data"
+	help = "Recurse through directory loading objects from json data"
 
 	def handle(self, *args, **options):
-	    culture_file = args[0]
+	    culture_dir = args[0]
 
 	    va_institution = Institution.objects.get(name="V&A")
-	    va_room = Location.objects.get(name="Room 21")
 
-	    with open(culture_file) as json_data:
+	    for root, dirs, files in os.walk(args[0]):
+	      if "objects.json" not in files:
+		continue
+
+	      with open("objects.json") as json_data:
 		data = json.load(json_data)
+		location, success = Location.object.get_or_create(
+					institution = va_institution,
+					name = data["location"],
+					description = data["description"])
 
-		for obj in data:
-		    o = Object(title=obj["title"], location = va_room,
+		for obj in data["objects"]:
+		    o = Object(title=obj["title"], location = location,
 			description = "", collection_id = obj["object_number"],
 			url = "", artist = obj["artist"],
 			image_url = obj["primary_image_id"])
