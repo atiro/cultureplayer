@@ -16,9 +16,11 @@ class Command(BaseCommand):
 	      if "objects.json" not in files:
 		continue
 
-	      with open("objects.json") as json_data:
+	      print "Loading data in: ", os.path.join(root, "objects.json")
+
+	      with open(os.path.join(root, "objects.json")) as json_data:
 		data = json.load(json_data)
-		location, success = Location.object.get_or_create(
+		location, success = Location.objects.get_or_create(
 					institution = va_institution,
 					name = data["location"],
 					description = data["description"])
