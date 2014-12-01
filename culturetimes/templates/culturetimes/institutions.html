@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+{% load bootstrap3 %}
+
+{% load bootstrap_themes %}
+
+{% bootstrap_styles theme='darkly' type='min.css' %}
+
+{% bootstrap_script use_min=True %}
+</head>
+<body>
+
+{% if institution_list %}
+  <ul class="list-group">
+    {% for institution in institution_list %}
+      <li class="list-group-item"><a href="/culturetimes/{{institution.id}}">{{institution.name}}</a></li>
+    {% endfor %}
+  </ul>
+{% endif %}
+</body>
+</html>

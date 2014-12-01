@@ -9,6 +9,8 @@ class Institution(models.Model):
 class Location(models.Model):
 	name = models.CharField(max_length=255)
 	institution = models.ForeignKey(Institution)
+	description = models.CharField(max_length=255, default='')
+
 
 class Object(models.Model):
 	title = models.CharField(max_length=255)

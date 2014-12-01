@@ -24,6 +24,8 @@ DEBUG = True
 
 TEMPLATE_DEBUG = True
 
+TEMPLATE_DIRS = [os.path.join(BASE_DIR, 'templates'), os.path.join(BASE_DIR, 'culturetimes', 'templates')]
+
 ALLOWED_HOSTS = []
 
 
@@ -38,6 +40,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
 
     'bootstrap3',
+    'bootstrap_themes',
 
     'culture',
     'genome',
