@@ -1,0 +1,9 @@
+{% load bootstrap3 %}
+
+{% if institution_list %}
+  <ul>
+    {% for institution in institution_list %}
+      <li><a href="/culturetimes/{{institution.id}}">{{institution.name}}</a></li>
+    {% endfor %}
+  </ul>
+{% endif %}
