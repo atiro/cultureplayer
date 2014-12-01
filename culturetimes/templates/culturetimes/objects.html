@@ -1,8 +1,13 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
 
+<script src="{{ STATIC_URL }}js/jquery.js"></script>
+
 {% load bootstrap3 %}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
 
 {% load bootstrap_themes %}
 
@@ -13,22 +18,55 @@
 <body>
 
 {% if object_list %}
+ <table class="table table-striped table-hover" style="width:95%; text-align: center;">
+  <thead>
+	<tr>
+	   <th>Object</th>
+	   <td>1920s</td>
+	   <td>1930s</td>
+	   <td>1940s</td>
+	   <td>1940s</td>
+	   <td>1950s</td>
+	   <td>1950s</td>
+	   <td>1960s</td>
+	   <td>1970s</td>
+	   <td>1980s</td>
+	   <td>1990s</td>
+	   <td>2000</td>
+	</tr>
+  </thead>
+  <tbody>
     {% for object in object_list %}
       {% if object.programme_set.count > 0 %}
-      <div class="panel panel-info">
-       <div class="panel-heading">
-        <h3 class="panel-title">{{object.title}}</h3>
-       </div>
-       <div class="panel-body">
-	    <ul class="list-group">
-	    {% for programme in object.programme_set.all|slice:":5" %}
- 	     <li class="list-group-item"><a href="{{programme.id}}/" data-toggle="tooltip" data-placement="top" title="" data-original-title="{{programme.description}}">{{programme.title}}</a></li>
-    	    {% endfor %}
-	    </ul>
-       </div>
-      </div>
+      <tr>
+        <td>{{object.title}} by {{object.artist}}</td>
+	{% for programme in object.programme_set.all|slice:":11" %}
+	    <td>
+		<span class="label label-primary">{{programme.datetime|date:"d M Y"}}</span>
+		<span class="label label-success">{{programme.channel.title}}</span>
+		<br>
+		<span>
+		<span class="glyphicon glyphicon-play" aria-hidden="true"/>
+		</span>
+<span data-toggle="tooltip" data-placement="bottom" title="" data-original-title="{{programme.description}}">{{programme.title}}</span>
+		<br>
+		</td>
+	{% endfor %}
+      </tr>
       {% endif %}
     {% endfor %}
+  </tbody>
+ </table>
 {% endif %}
+	
+<!--
+ 	     <li class="list-group-item"><a href="{{programme.id}}/" data-toggle="tooltip" data-placement="top" title="" data-original-title="{{programme.description}}">{{programme.title}}</a></li>
+-->
+
+<script>
+$(function () { $("[data-toggle='tooltip']").tooltip(); });
+</script>
 </body>
 </html>
+
+

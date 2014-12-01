@@ -39,6 +39,7 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    'jquery',
     'bootstrap3',
     'bootstrap_themes',
 
