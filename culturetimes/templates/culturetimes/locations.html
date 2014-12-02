@@ -15,7 +15,7 @@
 {% if location_list %}
   <ul class="list-group">
     {% for location in location_list %}
-      <li class="list-group-item"><a href="{{location.id}}/">{{location.name}}</a></li>
+      <li class="list-group-item"><a href="{{location.id}}">{{location.name}}</a></li>
     {% endfor %}
   </ul>
 {% endif %}

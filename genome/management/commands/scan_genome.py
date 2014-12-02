@@ -1,10 +1,10 @@
+from bs4 import BeautifulSoup, Comment
 import nltk
 import os
 import requests
 import re
 from datetime import datetime
 from time import sleep
-from bs4 import BeautifulSoup, Comment
 
 from culture.models import Object
 from genome.models import Channel, Programme
@@ -32,7 +32,7 @@ class Command(NoArgsCommand):
 
 	def handle_noargs(self, **options):
 
-	  for obj in Object.objects.filter(id__gt=2):
+	  for obj in Object.objects.all():
 	    query_words = []
 	    tokens = nltk.word_tokenize(obj.title)
 	    tagged = nltk.pos_tag(tokens)
@@ -102,4 +102,4 @@ class Command(NoArgsCommand):
 
 		programme.related_objects.add(obj)
 	# Now give genome a break
-	    sleep(5)
+	    sleep(3)

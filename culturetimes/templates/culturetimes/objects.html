@@ -22,19 +22,45 @@
 </head>
 <body>
 
-<div style="text-align: center;">
-<h1>V&A Times - BBC Arts Schedule</h1>
+<div class="container">
+<div class="row">
+
+<div class="col-md-8">
+<h1>V&A Times - Listings</h1>
 </div>
-<div style="float: left;">
-<h2>{{location.name}}</h2>
+
+<div class="col-md-4">
+<h3>Change Channel</h3>
+
+<div class="btn-group center-block">
+
+<a href="#" class="btn bt-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">{{location.name}} <span class="caret"></span></a>
+<ul class="dropdown-menu">
+  {% for location in locations %}
+  <li><a href="/culturetimes/7/{{location.id}}">{{location.name}}</a></li>
+  {% endfor %}
+</ul>
+</div>
+</div>
+
+</div> <!-- row -->
+</div>
+
+<div class="container">
+<div class="row" style="margin-left: 10px;">
+
+<div class="col-md-4">
+<h2><span style="text-align: center;">{{location.name}}</span></h2>
 <p>{{location.description}}</p>
-
-<div style="float: left;">
-Objects: {{ object_list|length }}
 </div>
 
-<div style="float: right;">
-<h3>Filter</h3>
+<div class="col-md-2 center-block">
+<h2 style="text-align: center;">Objects</h4>
+<p style="text-align: center;">{{ object_list|length }}</p>
+</div>
+
+<div class="col-md-5">
+<span style="text-align: center;"><h2>Filter By</h2></span>
 <div class="btn-toolbar">
 <div class="btn-group">
   <a href="#" class="btn btn-danger">Poem</a>
@@ -47,6 +73,9 @@ Objects: {{ object_list|length }}
 </div>
 </div>
 
+</div>
+
+</div> <!-- container -->
 
 {% if object_list %}
  <table class="table table-striped table-hover" style="width:100%; text-align: center;">
@@ -88,7 +117,13 @@ Objects: {{ object_list|length }}
 		{% if "music" in programme.description %}
 			<span class="label label-warning">Music</span>
 		{% endif %}
+		{% if "Music" in programme.description %}
+			<span class="label label-warning">Music</span>
+		{% endif %}
 		{% if "drama" in programme.description %}
+			<span class="label label-success">Drama</span>
+		{% endif %}
+		{% if "Drama" in programme.description %}
 			<span class="label label-success">Drama</span>
 		{% endif %}
 		{% if "ballet" in programme.description %}
@@ -111,7 +146,11 @@ Objects: {{ object_list|length }}
 {% endif %}
 	
 <script>
-$(function () { $("[data-toggle='tooltip']").tooltip(); });
+$(function () {
+	 $("[data-toggle='tooltip']").tooltip();
+	 $(".dropdown-toggle").dropdown();
+ });
+
 </script>
 </body>
 </html>

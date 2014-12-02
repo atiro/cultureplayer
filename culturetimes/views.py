@@ -50,6 +50,7 @@ def ObjectView2(request, institution, location):
 	# Create dict indexed by object 
 	# obj[id][decade][
 	
+	locs = Location.objects.filter(institution=institution)
 	loc = Location.objects.get(id=location)
 	objs = Object.objects.filter(location=location)
 
@@ -72,5 +73,6 @@ def ObjectView2(request, institution, location):
 	   
 	return render_to_response("culturetimes/objects.html",
 				 {"object_list": objs,
+				  "locations": locs,
 				  "location": loc},
 				 context_instance=RequestContext(request))
