@@ -1,9 +1,12 @@
+# -*- coding: UTF-8 -*-
+from datetime import datetime
+
 from django.shortcuts import render, render_to_response
 from django.views.generic.list import ListView
 from django.template import RequestContext
+
 from culture.models import Institution, Location, Object
 from genome.models import Programme
-from datetime import datetime
 
 
 # Create your views here.
@@ -52,7 +55,7 @@ def ObjectView2(request, institution, location):
 	
 	locs = Location.objects.filter(institution=institution)
 	loc = Location.objects.get(id=location)
-	objs = Object.objects.filter(location=location)
+	objs = Object.objects.filter(location=location).order_by("?")
 
 	for obj in objs:
 	  programmes = []

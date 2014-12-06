@@ -8,4 +8,5 @@ urlpatterns = patterns('',
 
     url(r'^admin/', include(admin.site.urls)),
     url(r'^culturetimes/', include('culturetimes.urls', namespace="culturetimes")),
+    url(r'^cultureplayer/', include('cultureplayer.urls', namespace="cultureplayer")),
 )

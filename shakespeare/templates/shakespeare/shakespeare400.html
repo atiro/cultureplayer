@@ -10,7 +10,7 @@
 
 {% load bootstrap_themes %}
 
-{% bootstrap_styles theme='darkly' type='min.css' %}
+{% bootstrap_styles theme='sandstone' type='min.css' %}
 
 {% bootstrap_script use_min=True %}
 
@@ -25,12 +25,8 @@
 <div class="container">
 <div class="row">
 
-<div class="col-md-8">
-{% if location.id == 71 %}
-<h1>NPG Times - Listings</h1>
-{% else %}
-<h1>V&A Times - Listings</h1>
-{% endif %}
+<div class="col-md-8 centered">
+<h1>Shakespeare at the BBC</h1>
 </div>
 
 <div class="col-md-4">
@@ -38,10 +34,13 @@
 
 <div class="btn-group center-block">
 
-<a href="#" class="btn bt-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">{{location.name}} <span class="caret"></span></a>
+<a href="#" class="btn bt-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">Plays <span class="caret"></span></a>
 <ul class="dropdown-menu">
-  {% for location in locations %}
-  <li><a href="/culturetimes/7/{{location.id}}">{{location.name}}</a></li>
+  <li><a href="/shakespeare/parody">Parody</a></li>
+  <li><a href="/shakespeare/talks">Talks</a></li>
+  <li><a href="/shakespeare/childrens">Childrens</a></li>
+  <li><a href="/shakespeare/critical">Critical</a></li>
+  <li><a href="/shakespeare/excepts">Excepts</a></li>
   {% endfor %}
 </ul>
 </div>

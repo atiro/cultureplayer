@@ -1,17 +1,17 @@
 from bs4 import BeautifulSoup, Comment
-import nltk
+#import nltk
 import os
 import requests
 import re
 from datetime import datetime
 from time import sleep
 
-from culture.models import Object
+from culture.models import Object,Location
 from genome.models import Channel, Programme
 from django.core.management.base import NoArgsCommand, CommandError
 
 genome_url = "http://genome.ch.bbc.co.uk"
-genome_search_url = genome_url + "/search/0/20"
+genome_search_url = genome_url + "/search/0/75"
 
 query_params = {
 	"adv": 0,
@@ -27,20 +27,25 @@ query_params = {
 
 query_cache = {}
 
+location = Location.objects.get(id=72)
+
 class Command(NoArgsCommand):
         help = "Loads objects from json data"
 
 	def handle_noargs(self, **options):
 
-	  for obj in Object.objects.all():
-	    query_words = []
-	    tokens = nltk.word_tokenize(obj.title)
-	    tagged = nltk.pos_tag(tokens)
-	    for tag in tagged:
-	        if tag[1] == 'NNP':
-	       	    query_words.append(tag[0])
+	  for obj in Object.objects.filter(location=location):
+	    query_words = obj.title.split(' ')
+	    #tokens = nltk.word_tokenize(obj.title)
+	    #tagged = nltk.pos_tag(tokens)
+	    #for tag in tagged:
+	    #    if tag[1] == 'NNP':
+	    #   	    query_words.append(tag[0])
 
 	    print "Querying object ", obj.id
+
+	    # Add in SHakespeare
+	    query_words.insert(0, "Shakespeare")
 
 	    if len(query_words) < 1:
 		print "No search words found, skipping (" + obj.title + ")"

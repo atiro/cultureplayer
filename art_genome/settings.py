@@ -24,7 +24,7 @@ DEBUG = True
 
 TEMPLATE_DEBUG = True
 
-TEMPLATE_DIRS = [os.path.join(BASE_DIR, 'templates'), os.path.join(BASE_DIR, 'culturetimes', 'templates')]
+TEMPLATE_DIRS = [os.path.join(BASE_DIR, 'templates'), os.path.join(BASE_DIR, 'culturetimes', 'templates'), os.path.join(BASE_DIR, 'cultureplayer', 'templates')]
 
 ALLOWED_HOSTS = []
 
@@ -39,12 +39,13 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    'jquery',
+   'jquery',
     'bootstrap3',
     'bootstrap_themes',
 
     'culture',
     'genome',
+    'shakespeare',
 )
 
 MIDDLEWARE_CLASSES = (

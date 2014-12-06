@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<script src="{{STATIC_URL}}js/jquery.js"></script>
+
+{% load bootstrap3 %}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+
+{% load bootstrap_themes %}
+
+{% bootstrap_styles theme='darkly' type='min.css' %}
+
+{% bootstrap_script use_min=True %}
+
+<style type="text/css">
+	.table a { text-decoration: none; }
+	th, td { text-align: center; width: 100px; }
+</style>
+
+</head>
+<body>
+
+<div class="container">
+<div class="row">
+
+<div class="col-md-8">
+<h1>Culture Playlister</h1>
+</div>
+
+<div class="col-md-4">
+<span class="text-muted">Artists</span>&nbsp;
+<span class="text-muted">Programmes</span>
+</div>
+
+</div>
+</div>
+
+<div class="container">
+<div class="row" style="margin-left: 10px;">
+<div class="col-md-6">
+<h3><span style="text-align: left;">Assorted Objects</span></h3>
+<p>
+<span class="text-primary">All</span>&nbsp;|
+{% if institution.id == 7 %}
+<span class="text-warning">V&A</span>&nbsp;|
+{% else %}
+<span class="text-primary"><a href="/cultureplayer/7/2000">V&A</a></span>&nbsp;|
+{% endif %}
+{% if institution.id == 8 %}
+<span class="text-warning">NPG</span>&nbsp;|
+{% else %}
+<span class="text-primary"><a href="/cultureplayer/8/2000">NPG</a></span>&nbsp;|
+{% endif %}
+<span class="text-primary">British Museum</span>&nbsp;|
+<span class="text-primary">Science Museum</span>&nbsp;|
+<span class="text-primary">Whitby Museum</span>&nbsp;
+</p>
+
+</div>
+
+<div class="col-md-2">
+<p>Your Cultural List:</p>
+</div>
+<div class="col-md-4">
+<p>Period:</p>
+<div class="btn-group center-block">
+<a href="#" class="btn bt-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">Last Decade<span class="caret"></span></a>
+<ul class="dropdown-menu">
+  {% for decade in decades reversed %}
+  <li><a href="/cultureplayer/{{institution.id}}/{{decade}}">{{decade}}s</a></li>
+  {% endfor %}
+</ul>
+</div>
+
+
+</div>
+
+</div>
+</div>
+
+{% if object_list %}
+ <table class="table table-striped table-hover" style="width:100%; text-align: center;">
+  <tbody>
+    <tr>
+    {% for object in object_list %}
+	{% if forloop.counter0|divisibleby:"4" %}
+ 	   </tr>
+ 	   <tr>
+	{% endif %}
+      {% if object.programme_set.count > 0 and object.image_url %}
+        <td>
+	{% if object.location.id == 71 %}
+        <a href="http://www.npg.org.uk{{object.url}}"><img src="{{object.image_url}}"></a><br/>
+	{% else %}
+        <a href="http://www.vam.ac.uk/api/json/museumobject/{{object.collection_id}}"><img src="http://media.vam.ac.uk/media/thira/collection_images/{{object.image_url|slice:"0:6"}}/{{object.image_url}}_jpg_s.jpg"></a><br/>
+	{% endif %}
+	{{object.title}}<br/>
+	{{object.artist}}<br/>
+	Mentioned in <span data-toggle="tooltip" data-placement="bottom" title="" data-original-title ="{{object.programmes.description|escape}}"><a href="http://genome.ch.bbc.co.uk{{object.programmes.genome_url}}">{{object.programmes.title}}</a></span> on {{object.programmes.channel.title}}<br/>
+
+	<span class="glyphicon glyphicon-plus" aria-hidden="true" data-toggle="tooltip" data-placement="left" title="" data-original-title="Add to Playlist"/>
+
+	<span class="glyphicon glyphicon-minus" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="" data-original-title="Mark Incorrect"/>
+
+	{% if object.location.id == 71 %}
+		<a href="http://www.npg.org.uk{{object.url}}">
+	{% else %}
+	<a href="http://www.vam.ac.uk/api/json/museumobject/{{object.collection_id}}">
+	{% endif %}
+
+	<span class="glyphicon glyphicon-play" aria-hidden="true" data-toggle="tooltip" data-placement="right" title="" data-original-title="View Object"/></a>
+
+	</td>
+       {% endif %}
+    {% endfor %}
+      </tr>
+  </tbody>
+ </table>
+{% endif %}
+	
+<script>
+$(function () {
+	 $("[data-toggle='tooltip']").tooltip();
+	 $(".dropdown-toggle").dropdown();
+ });
+
+</script>
+</body>
+</html>
+
+
