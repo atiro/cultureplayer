@@ -7,6 +7,7 @@ urlpatterns = patterns('',
     # url(r'^blog/', include('blog.urls')),
 
     url(r'^admin/', include(admin.site.urls)),
+    url(r'^shakespeare/', include('shakespeare.urls', namespace="shakespeare")),
     url(r'^culturetimes/', include('culturetimes.urls', namespace="culturetimes")),
     url(r'^cultureplayer/', include('cultureplayer.urls', namespace="cultureplayer")),
 )
